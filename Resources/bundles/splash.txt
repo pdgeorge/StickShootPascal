@@ -1,0 +1,10 @@
+//
+// This loads all of the resourced used by the splash screen
+//Loads BITMAP
+BITMAP,Swinburne,Swinburne.jpg
+//Loads Sprites. name of sprite, filename, x of each sprite, y of each sprite, how many sprites per x, how many sprites in the y, how many frames in total.
+BITMAP,SwinGameAni,SwinGameAni.png,256,42,4,14,56
+FONT,LoadingFont,cour.ttf,8
+FONT,SwinGameText,maven_pro_regular.ttf,14
+//Animation file, What it's called, filename.
+ANIM,Startup,startup.txt

@@ -1,0 +1,11 @@
+//This loads all of the resources used
+
+//Loads Sprites. name the sprite, filename, x of each sprite, y of each sprite, how many sprites per x, how many sprites in the y, how many frames in total.
+BITMAP,explosionBmp,explosion_pro.png, 72, 72, 6, 7, 40
+
+//Animation file, What it's called, filename.
+ANIM,explosionScrpt,explosion.txt
+
+//Loads the sounds, name them, filename.
+SOUND,boom,boom.wav
+SOUND,moob,moob.wav

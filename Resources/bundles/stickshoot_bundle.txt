@@ -1,0 +1,20 @@
+//This loads all of the resources used
+
+//Loads Sprites. name the sprite, filename, x of each sprite, y of each sprite, how many sprites per x, how many sprites in the y, how many frames in total.
+BITMAP,StickDances,StickDances.png, 30, 30, 7, 6, 42
+BITMAP,Tankret,Tank_Small.png
+BITMAP,Bullet,Bullet.png
+
+
+//Animation file, What it's called, filename.
+ANIM,stickShoot_Ani,stickshoot_animation.txt
+
+//Loads the sounds, name them, filename.
+SOUND,Pew1,Pew1.wav
+SOUND,Pew2,Pew2.wav
+SOUND,Pew3,Pew3.wav
+SOUND,Pew4,Pew4.wav
+SOUND,Pew5,Pew5.wav
+SOUND,Pew6,Pew6.wav
+SOUND,Squish,Squish.wav
+SOUND,Grant,Grant.wav
