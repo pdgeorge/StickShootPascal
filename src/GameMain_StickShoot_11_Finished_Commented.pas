@@ -14,11 +14,11 @@ type
 		dX, dY : Integer;
 		dance : String;
 		stillAlive: Boolean;
-		Named : String;
+		named : String;
 	end;
 
 	//record to define a bullet
-	bullet = record
+	Bullet = record
 		xPos, yPos : Integer;
 		ani : Sprite;
 		inUse : Boolean;
@@ -26,30 +26,30 @@ type
 	end;
 
 	//record to define a turret
-	turret = record
+	Turret = record
 		xPos, yPos : Integer;
 		bmp : Bitmap;
-		bullet: bullet;
+		bullet: Bullet;
 	end;
 
 	//had to have one field for each stick figure rather than having an array of figures.
-	gameData = record
-		Steve : StickMan;
-		Bob : StickMan;
-		Pete : StickMan;
-		John : StickMan;
-		Frank : StickMan;
-		Carl : StickMan;
+	GameData = record
+		steve : StickMan;
+		bob : StickMan;
+		pete : StickMan;
+		john : StickMan;
+		frank : StickMan;
+		carl : StickMan;
 		score : Integer;
 		level : Integer;
 		speed : Integer;
-		turret : array of turret;
+		turret : array of Turret;
 	end;
 
 // Instead of deleting this, leaving this failed procedure commented out.
-// procedure StickCollide(var man: StickMan; const game: gameData); Horrible Failure
+// procedure StickCollide(var man: StickMan; const game: GameData); Horrible Failure
 // begin
-// 	if SpriteCollision(man.ani, game.Steve.ani) or SpriteCollision(man.ani, game.Bob.ani) or SpriteCollision(man.ani, game.Pete.ani) or SpriteCollision(man.ani, game.John.ani) or SpriteCollision(man.ani, game.Frank.ani) or SpriteCollision(man.ani, game.Carl.ani) then
+// 	if SpriteCollision(man.ani, game.steve.ani) or SpriteCollision(man.ani, game.bob.ani) or SpriteCollision(man.ani, game.pete.ani) or SpriteCollision(man.ani, game.john.ani) or SpriteCollision(man.ani, game.frank.ani) or SpriteCollision(man.ani, game.carl.ani) then
 // 	begin
 // 		SpriteSetDX(man.ani, ((Round(Rnd() * 10 - 5))));
 // 	end;
@@ -57,7 +57,7 @@ type
 
 //Returns a random D to be used for dX or dY which effects the rate which the stickmen moves.
 //This can't be 0 so they won't be stationary.
-function RandD(const game: gameData): Integer;
+function RandD(const game: GameData): Integer;
 begin
 	result := 0;
 	while result = 0 do
@@ -68,7 +68,7 @@ end;
 
 //Same as RandD except it can return positive or negative random number.
 //Required when initialising the game.
-function InitialRandD(const game: gameData): Integer;
+function InitialRandD(const game: GameData): Integer;
 begin
 	result := 0;
 	while result = 0 do
@@ -78,7 +78,7 @@ begin
 end;
 
 //Bounces the Stickmen when they hit the wall.
-procedure BounceStickMan(var man: StickMan; const game: gameData);
+procedure BounceStickMan(var man: StickMan; const game: GameData);
 begin
 	if man.stillAlive then
 	begin
@@ -110,31 +110,31 @@ begin
 end;
 
 //Goes through all the stickmen one after the other checking if they have hit the wall/need to bounce against the wall.
-procedure BounceStickMen(var game: gameData);
+procedure BounceStickMen(var game: GameData);
 begin
-	BounceStickMan(Game.Steve, game);
-	BounceStickMan(Game.Bob, game);
-	BounceStickMan(Game.Pete, game);
-	BounceStickMan(Game.John, game);
-	BounceStickMan(Game.Frank, game);
-	BounceStickMan(Game.Carl, game);
-	// StickCollide(game.Steve, game);
-	// StickCollide(game.Bob, game);
-	// StickCollide(game.Pete, game);
-	// StickCollide(game.John, game);
-	// StickCollide(game.Frank, game);
-	// StickCollide(game.Carl, game);
+	BounceStickMan(Game.steve, game);
+	BounceStickMan(Game.bob, game);
+	BounceStickMan(Game.pete, game);
+	BounceStickMan(Game.john, game);
+	BounceStickMan(Game.frank, game);
+	BounceStickMan(Game.carl, game);
+	// StickCollide(game.steve, game);
+	// StickCollide(game.bob, game);
+	// StickCollide(game.pete, game);
+	// StickCollide(game.john, game);
+	// StickCollide(game.frank, game);
+	// StickCollide(game.carl, game);
 end;
 
 //Draws the individual turret.
-procedure DrawTurret(const turret: turret);
+procedure DrawTurret(const turret: Turret);
 begin
 	DrawSprite(turret.bullet.ani);
 	DrawBitmap(turret.bmp, turret.xPos, turret.yPos);
 end;
 
 //Goes through all the turrets and draws them.
-procedure DrawTurrets(var game: gameData);
+procedure DrawTurrets(var game: GameData);
 var
 	i: Integer;
 begin
@@ -150,26 +150,26 @@ begin
 end;
 
 //Draws the entire game.
-procedure DrawGame(var game: gameData);
+procedure DrawGame(var game: GameData);
 var
 	i: Integer;
 begin
-	AliveCheck(game.Steve);
-  AliveCheck(game.Bob);
-  AliveCheck(game.Pete);
-  AliveCheck(game.John);
-  AliveCheck(game.Frank);
-  AliveCheck(game.Carl);
+	AliveCheck(game.steve);
+  AliveCheck(game.bob);
+  AliveCheck(game.pete);
+  AliveCheck(game.john);
+  AliveCheck(game.frank);
+  AliveCheck(game.carl);
   DrawTurrets(game);
  	DrawText('Score: ' + IntToStr(game.score), ColorBlack, 0, 0);
  	DrawText('Level: ' + IntToStr(game.level), ColorBlack, 0, 10);
   RefreshScreen(60 );
-  UpdateSprite(game.Steve.ani);
-  UpdateSprite(game.Bob.ani);
-  UpdateSprite(game.Pete.ani);
-  UpdateSprite(game.John.ani);
-  UpdateSprite(game.Frank.ani);
-  UpdateSprite(game.Carl.ani);
+  UpdateSprite(game.steve.ani);
+  UpdateSprite(game.bob.ani);
+  UpdateSprite(game.pete.ani);
+  UpdateSprite(game.john.ani);
+  UpdateSprite(game.frank.ani);
+  UpdateSprite(game.carl.ani);
   for i:= Low(game.turret) to High(game.turret) do
  		UpdateSprite(game.turret[i].bullet.ani);
 end;
@@ -185,7 +185,7 @@ begin
 end;
 
 //Draws the bullets on screen.
-procedure InsertBullet(const turret: turret);
+procedure InsertBullet(const turret: Turret);
 begin
 	SpriteSetX(turret.bullet.ani, turret.bullet.xPos);
 	SpriteSetY(turret.bullet.ani, turret.bullet.yPos);
@@ -194,16 +194,16 @@ begin
 end;
 
 //cycles through all the Stickmen and puts them on screen as well as the bullets for the turrets.
-procedure InsertStickMen(const game: gameData);
+procedure InsertStickMen(const game: GameData);
 var
 	i: Integer;
 begin
-	InsertStickMan(game.Steve);
-	InsertStickMan(game.Bob);
-	InsertStickMan(game.Pete);
-	InsertStickMan(game.John);
-	InsertStickMan(game.Frank);
-	InsertStickMan(game.Carl);
+	InsertStickMan(game.steve);
+	InsertStickMan(game.bob);
+	InsertStickMan(game.pete);
+	InsertStickMan(game.john);
+	InsertStickMan(game.frank);
+	InsertStickMan(game.carl);
 	for i := Low(game.turret) to High(game.turret) do
 		InsertBullet(game.turret[i]);
 end;
@@ -211,18 +211,18 @@ end;
 //Assigns dances to the stickmen depending on their name.
 function AssignDance(const Guy: StickMan):String;
 begin
-	case guy.Named of
-		'Steve'	:	result := 'Steve';
-		'Bob'	:	result := 'Bob';
-		'Pete'	:	result := 'Pete';
-		'John'	:	result := 'John';
-		'Frank'	:	result := 'Frank';
-		'Carl'	:	result := 'Carl';
+	case guy.named of
+		'steve'	:	result := 'steve';
+		'bob'		:	result := 'bob';
+		'pete'	:	result := 'pete';
+		'john'	:	result := 'john';
+		'frank'	:	result := 'frank';
+		'carl'	:	result := 'carl';
 	end;
 end;
 
 //Creates the data for each individual stickman.
-function SpawnStickMan(var Guy: StickMan; game: gameData): StickMan;
+function SpawnStickMan(var Guy: StickMan; game: GameData): StickMan;
 begin
 	result.dance := AssignDance(Guy);
 	result.ani := CreateSprite(BitmapNamed('StickDances' )  ,AnimationScriptNamed('stickShoot_Ani' ) );
@@ -234,20 +234,20 @@ begin
 end;
 
 //Creates the blank stickmen to begin with, then calls SpawnStickman to fill in the data for all stickmen.
-procedure SpawnStickMen(var game: gameData);
+procedure SpawnStickMen(var game: GameData);
 begin
-	game.Steve.Named := 'Steve';
-	game.Steve := SpawnStickMan(game.Steve, game);
-	game.Bob.Named := 'Bob';
-	game.Bob := SpawnStickMan(game.Bob, game);
-	game.Pete.Named := 'Pete';
-	game.Pete := SpawnStickMan(game.Pete, game);
-	game.John.Named := 'John';
-	game.John := SpawnStickMan(game.John, game);
-	game.Frank.Named := 'Frank';
-	game.Frank := SpawnStickMan(game.Frank, game);
-	game.Carl.Named := 'Carl';
-	game.Carl := SpawnStickMan(game.Carl, game);
+	game.steve.named := 'steve';
+	game.steve := SpawnStickMan(game.steve, game);
+	game.bob.named := 'bob';
+	game.bob := SpawnStickMan(game.bob, game);
+	game.pete.named := 'pete';
+	game.pete := SpawnStickMan(game.pete, game);
+	game.john.named := 'john';
+	game.john := SpawnStickMan(game.john, game);
+	game.frank.named := 'frank';
+	game.frank := SpawnStickMan(game.frank, game);
+	game.carl.named := 'carl';
+	game.carl := SpawnStickMan(game.carl, game);
 end;
 
 //Calculates the x position of each turret based on how many turrets there are and which turret it is.
@@ -267,7 +267,7 @@ begin
 end;
 
 //Creates data for each turret.
-function SpawnTurret(i, t: Integer):turret;
+function SpawnTurret(i, t: Integer):Turret;
 begin
 	result.bmp := BitmapNamed('Tankret');
 	result.bullet := CreateBullet(i, t);
@@ -276,7 +276,7 @@ begin
 end;
 
 //Creates all turrets.
-procedure SpawnTurrets(var game: gameData; const turrets: Integer);
+procedure SpawnTurrets(var game: GameData; const turrets: Integer);
 var
 	i: Integer;
 begin
@@ -286,14 +286,14 @@ begin
 end;
 
 //Frees the Sprites for when the game is closed.
-procedure FreeStickMen(var game: gameData);
+procedure FreeStickMen(var game: GameData);
 begin
-    FreeSprite(game.Steve.ani);
-    FreeSprite(game.Bob.ani);
-    FreeSprite(game.Pete.ani);
-    FreeSprite(game.John.ani);
-    FreeSprite(game.Frank.ani);
-    FreeSprite(game.Carl.ani);
+    FreeSprite(game.steve.ani);
+    FreeSprite(game.bob.ani);
+    FreeSprite(game.pete.ani);
+    FreeSprite(game.john.ani);
+    FreeSprite(game.frank.ani);
+    FreeSprite(game.carl.ani);
 end;
 
 //Plays one of the random 'Pew' sounds.
@@ -325,7 +325,7 @@ begin
 end;
 
 //Resets/reloads the bullet back to the starting position and removes velocity from it. Also allows it to be fired again.
-procedure TurretReset(var turret: turret);
+procedure TurretReset(var turret: Turret);
 begin
 	SpriteSetY(turret.bullet.ani, turret.yPos);
 	SpriteSetDY(turret.bullet.ani, 0);
@@ -333,7 +333,7 @@ begin
 end;
 
 //Checks if a bullet has hit a stickman.
-procedure HitCheck(var man: StickMan; var turret: turret; var game: gameData);
+procedure HitCheck(var man: StickMan; var turret: Turret; var game: GameData);
 begin
 	if SpriteCollision(man.ani, turret.bullet.ani) then
 	begin
@@ -349,18 +349,18 @@ begin
 end;
 
 //Goes through all the bullets and checks if the individual bullet has then hit any of the stickmen.
-procedure UpdateGame(var game: gameData);
+procedure UpdateGame(var game: GameData);
 var
 	i: Integer;
 begin
 	for i := Low(game.turret) to High(game.turret) do
 	begin
-		HitCheck(game.Steve, game.turret[i], game);
-		HitCheck(game.Bob, game.turret[i], game);
-		HitCheck(game.Pete, game.turret[i], game);
-		HitCheck(game.John, game.turret[i], game);
-		HitCheck(game.Frank, game.turret[i], game);
-		HitCheck(game.Carl, game.turret[i], game);
+		HitCheck(game.steve, game.turret[i], game);
+		HitCheck(game.bob, game.turret[i], game);
+		HitCheck(game.pete, game.turret[i], game);
+		HitCheck(game.john, game.turret[i], game);
+		HitCheck(game.frank, game.turret[i], game);
+		HitCheck(game.carl, game.turret[i], game);
 		if SpriteY(game.turret[i].bullet.ani) <= 0 then
 		begin
 			TurretReset(game.turret[i]);
@@ -369,7 +369,7 @@ begin
 end;
 
 //Handles the player input.
-procedure HandleInput(var game: gameData);
+procedure HandleInput(var game: GameData);
 var
 	i: Integer;
 begin
@@ -392,9 +392,9 @@ begin
 end;
 
 //Checks if all the stickmen are still alive. If they aren't, levels up the game, respawns all the stickmen and speeds the game up.
-procedure LevelUp(var game: gameData);
+procedure LevelUp(var game: GameData);
 begin
-	if not game.Steve.stillAlive and not game.Bob.stillAlive and not game.Pete.stillAlive and not game.John.stillAlive and not game.Frank.stillAlive and not game.Carl.stillAlive then
+	if not game.steve.stillAlive and not game.bob.stillAlive and not game.pete.stillAlive and not game.john.stillAlive and not game.frank.stillAlive and not game.carl.stillAlive then
 	begin
 		game.speed +=1;
 		SpawnStickMen(game);
@@ -406,7 +406,7 @@ end;
 
 procedure Main();
 var
-	MainGameData: gameData; //create a data record for all the data to fit in
+	MainGameData: GameData; //create a data record for all the data to fit in
 begin
 	MainGameData.score := 0;
 	MainGameData.speed := 3; //Must be 3 or more to start.
