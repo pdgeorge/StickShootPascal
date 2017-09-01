@@ -155,33 +155,33 @@ var
 	i: Integer;
 begin
 	AliveCheck(game.steve);
-  AliveCheck(game.bob);
-  AliveCheck(game.pete);
-  AliveCheck(game.john);
-  AliveCheck(game.frank);
-  AliveCheck(game.carl);
-  DrawTurrets(game);
- 	DrawText('Score: ' + IntToStr(game.score), ColorBlack, 0, 0);
- 	DrawText('Level: ' + IntToStr(game.level), ColorBlack, 0, 10);
-  RefreshScreen(60 );
-  UpdateSprite(game.steve.ani);
-  UpdateSprite(game.bob.ani);
-  UpdateSprite(game.pete.ani);
-  UpdateSprite(game.john.ani);
-  UpdateSprite(game.frank.ani);
-  UpdateSprite(game.carl.ani);
-  for i:= Low(game.turret) to High(game.turret) do
- 		UpdateSprite(game.turret[i].bullet.ani);
+	AliveCheck(game.bob);
+	AliveCheck(game.pete);
+	AliveCheck(game.john);
+	AliveCheck(game.frank);
+	AliveCheck(game.carl);
+	DrawTurrets(game);
+	DrawText('Score: ' + IntToStr(game.score), ColorBlack, 0, 0);
+	DrawText('Level: ' + IntToStr(game.level), ColorBlack, 0, 10);
+	RefreshScreen(60 );
+	UpdateSprite(game.steve.ani);
+	UpdateSprite(game.bob.ani);
+	UpdateSprite(game.pete.ani);
+	UpdateSprite(game.john.ani);
+	UpdateSprite(game.frank.ani);
+	UpdateSprite(game.carl.ani);
+	for i:= Low(game.turret) to High(game.turret) do
+		UpdateSprite(game.turret[i].bullet.ani);
 end;
 
 //Puts the individual stickman on screen the first time, setting their initial position/dX/dY/Sprites and animations.
 procedure InsertStickMan(const man: StickMan);
 begin
-    SpriteStartAnimation(man.ani, man.dance);
-		SpriteSetX(man.ani, man.xPos);
-    SpriteSetY(man.ani, man.yPos);
-    SpriteSetDX(man.ani, man.dX);
-    SpriteSetDY(man.ani, man.dY);
+	SpriteStartAnimation(man.ani, man.dance);
+	SpriteSetX(man.ani, man.xPos);
+	SpriteSetY(man.ani, man.yPos);
+	SpriteSetDX(man.ani, man.dX);
+	SpriteSetDY(man.ani, man.dY);
 end;
 
 //Draws the bullets on screen.
@@ -213,7 +213,7 @@ function AssignDance(const Guy: StickMan):String;
 begin
 	case guy.named of
 		'steve'	:	result := 'steve';
-		'bob'		:	result := 'bob';
+		'bob'	:	result := 'bob';
 		'pete'	:	result := 'pete';
 		'john'	:	result := 'john';
 		'frank'	:	result := 'frank';
@@ -288,12 +288,12 @@ end;
 //Frees the Sprites for when the game is closed.
 procedure FreeStickMen(var game: GameData);
 begin
-    FreeSprite(game.steve.ani);
-    FreeSprite(game.bob.ani);
-    FreeSprite(game.pete.ani);
-    FreeSprite(game.john.ani);
-    FreeSprite(game.frank.ani);
-    FreeSprite(game.carl.ani);
+	FreeSprite(game.steve.ani);
+	FreeSprite(game.bob.ani);
+	FreeSprite(game.pete.ani);
+	FreeSprite(game.john.ani);
+	FreeSprite(game.frank.ani);
+	FreeSprite(game.carl.ani);
 end;
 
 //Plays one of the random 'Pew' sounds.
@@ -418,19 +418,19 @@ begin
 	SpawnStickMen(MainGameData);
 	SpawnTurrets(MainGameData, 3); //Changes how many turrets there are available to use. Auto-scales their positions so they are always evenly positioned.
 	InsertStickMen(MainGameData);
-  repeat //repeatedly draws and redraws the game screen until it the window is closed
-      ClearScreen(ColorWhite ); //first, clear the entire screen to white.
-      ProcessEvents(); //SwinGame requires ProcessEvents to 'listen' for player inputs such as mouse or keyboard inputs
-      BounceStickMen(MainGameData); //check if the stickmen have hit a wall and make them 'bounce'
-      HandleInput(MainGameData); //does things according to the player inputs
-      UpdateGame(MainGameData); //updates multiple aspects. Probably should have called it something different
-      LevelUp(MainGameData); //checks if it needs to increase the level/respawn the Stickmen
-      DrawGame(MainGameData); //Draws everything to the window/canvas
+	repeat //repeatedly draws and redraws the game screen until it the window is closed
+		ClearScreen(ColorWhite ); //first, clear the entire screen to white.
+		ProcessEvents(); //SwinGame requires ProcessEvents to 'listen' for player inputs such as mouse or keyboard inputs
+		BounceStickMen(MainGameData); //check if the stickmen have hit a wall and make them 'bounce'
+		HandleInput(MainGameData); //does things according to the player inputs
+		UpdateGame(MainGameData); //updates multiple aspects. Probably should have called it something different
+		LevelUp(MainGameData); //checks if it needs to increase the level/respawn the Stickmen
+		DrawGame(MainGameData); //Draws everything to the window/canvas
 	until WindowCloseRequested();
-  Delay(800); //after the window has been closed wait 0.8 seconds
-  FreeStickMen(MainGameData);
-  CloseAudio();
-  ReleaseAllResources(); //free all resources so the game doesn't waste memory on the computer when it's closed
+	Delay(800); //after the window has been closed wait 0.8 seconds
+	FreeStickMen(MainGameData);
+	CloseAudio();
+	ReleaseAllResources(); //free all resources so the game doesn't waste memory on the computer when it's closed
 end;
 
 begin
